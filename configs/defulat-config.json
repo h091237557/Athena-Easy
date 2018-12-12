@@ -1,0 +1,6 @@
+{
+    "name": "default",
+    "profile": "default",
+    "result_bucket": "aws-athena-query-results-kkbox-test-api-io",
+    "region": "ap-northeast-1"
+}

@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+'use strict';
+const modules = require('../modules/index');
+
+const vorpal = require('vorpal')();
+
+modules.forEach((Module) => {
+  const parameters = generateParametersString(Module.parameters);
+  vorpal
+  .command(`${Module.name} ${parameters}`, Module.describe)
+  .action(async function (args, callback) {
+    let instance = new Module.class(this);
+    await instance.execute(args);
+    callback();
+  });
+});
+
+vorpal
+  .delimiter('Athena-easy-query$')
+  .show();
+
+/**
+ * @param {Array} parameters
+ * @returns {String} '[a] [b]'
+ */
+function generateParametersString (parameters) {
+  if (!parameters || parameters.length === 0) {
+    return '';
+  }
+
+  let result = '';
+  parameters.forEach((parameter) => {
+    result += `[${parameter}] `;
+  });
+  return result;
+}
