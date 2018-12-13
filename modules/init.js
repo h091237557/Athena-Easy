@@ -2,6 +2,7 @@
 
 const AWS = require('aws-sdk');
 const fs = require('fs');
+const path = require('path');
 
 class InitModule {
   constructor (vorpal) {
@@ -73,7 +74,7 @@ class InitModule {
       'region': this.config.region
     };
 
-    fs.writeFileSync(`./configs/default-config.json`, JSON.stringify(config, null, 4));
+    fs.writeFileSync(path.resolve(__dirname, '../configs/default-config.json'), JSON.stringify(config, null, 4));
   }
 }
 
