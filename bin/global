@@ -7,7 +7,7 @@ const vorpal = require('vorpal')();
 modules.forEach((Module) => {
   const parameters = generateParametersString(Module.parameters);
   vorpal
-  .command(`${Module.name} ${parameters}`, Module.describe)
+  .command(`${Module.command} ${parameters}`, Module.describe)
   .action(async function (args, callback) {
     let instance = new Module.class(this);
     await instance.execute(args);
