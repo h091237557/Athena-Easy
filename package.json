@@ -1,14 +1,14 @@
 {
-  "name": "athena-easy",
+  "name": "athena-cli-node",
   "preferGlobal": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "init": "node init.js"
   },
   "bin": {
-    "easya": "./bin/global"
+    "athena-cli": "./bin/global"
   },
   "directories": {
     "bin": "./bin"
