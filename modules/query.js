@@ -5,14 +5,6 @@ const Table = require('cli-table2');
 const LINE_CHAR_LIMIT = 100;
 const ROW_LIMIT = 50;
 
-const awsConfig = {
-  region: 'ap-northeast-1'
-};
-
-const clientConfig = {
-  bucketUri: 's3://aws-athena-query-results-kkbox-test-api-io'
-};
-
 class QueryModule {
   constructor (vorpal) {
     this.awsConfig = {};
@@ -27,13 +19,26 @@ class QueryModule {
         return;
       }
 
+      this._setConfig();
+
       console.log('wait ......');
-      const client = athena.createClient(clientConfig, awsConfig);
+      const client = athena.createClient(this.clientConfig, this.awsConfig);
       const result = await fetchDataFromS3(client, query);
       await showResult(result);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  _setConfig () {
+    const config = require('../configs/index')();
+    this.awsConfig = {
+      region: config.region
+    };
+
+    this.clientConfig = {
+      bucketUri: config.result_bucket
+    };
   }
 }
 

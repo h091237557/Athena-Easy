@@ -1,12 +1,12 @@
-const fs = require('fs');
+const defaultUse = require('./default-use.json');
 
 // module.exports = () => {
 module.exports = () => {
-  const configFiles = fs.readdirSync(`${__dirname}/`).filter((config) => (config !== 'index.js'));
-  let configs = {};
-  configFiles.forEach((name) => {
-    let config = require(`./${name}`);
-    configs[`${config.name}`] = config;
-  });
-  return configs;
+  if (!defaultUse) {
+    throw new Error('Your have not default use config file');
+  }
+
+  const defaultConfig = require(`./${defaultUse.use}-config.json`);
+
+  return defaultConfig;
 };

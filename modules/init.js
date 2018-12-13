@@ -50,7 +50,7 @@ class InitModule {
         if (!await checkBucketExists(bucket)) {
           console.log('The bucket is not exist');
         }
-        this.config.result_bucket = bucket;
+        this.config.result_bucket = ans.bucket;
         resolve();
       } catch (error) {
         reject(error);
@@ -73,7 +73,7 @@ class InitModule {
       'region': this.config.region
     };
 
-    fs.writeFileSync(`./configs/defulat-config.json`, JSON.stringify(config, null, 4));
+    fs.writeFileSync(`./configs/default-config.json`, JSON.stringify(config, null, 4));
   }
 }
 
